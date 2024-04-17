@@ -2,14 +2,28 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { getGenre } from "../lib/genre";
+import { useContext } from "react";
+import { MovieContext } from "@/context";
 
 export default function MovieFigure({ movie, cart }) {
     const route = useRouter();
+    const { cartMovie, setCartMovie } = useContext(MovieContext);
     const { id, title, poster_path, vote_average, genre_ids } = movie;
 
     function handleAddtoCart(e) {
         e.stopPropagation();
-        console.log(genre_ids);
+        let check = cartMovie?.find((m) => m.id === id);
+        if (check) {
+            console.log("Already in cart");
+            return;
+        }
+        if (!cartMovie) setCartMovie([movie]);
+        else setCartMovie([...cartMovie, movie]);
+    }
+
+    function handleFavouritebtn(e) {
+        e.stopPropagation();
+        // console.log(e);
     }
 
     return (
@@ -41,19 +55,32 @@ export default function MovieFigure({ movie, cart }) {
                         />
                     ))}
                 </div>
-                <button
-                    onClick={handleAddtoCart}
-                    className="bg-primary w-full rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
-                >
-                    <span>{`$ ${200}`}</span> |
-                    <Image
-                        src="/assets/svg/tag.svg"
-                        alt="tag"
-                        width="18"
-                        height="18"
-                    />
-                    <span>{cart}</span>
-                </button>
+                <div className="flex items-center justify-between gap-2">
+                    <button
+                        onClick={handleAddtoCart}
+                        className="bg-primary w-full rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
+                    >
+                        <span>{`$ ${200}`}</span> |
+                        <Image
+                            src="/assets/svg/tag.svg"
+                            alt="tag"
+                            width="18"
+                            height="18"
+                        />
+                        <span>{cart}</span>
+                    </button>
+                    <button
+                        onClick={handleFavouritebtn}
+                        className="border border-primary border-1 rounded-lg p-2"
+                    >
+                        <Image
+                            src="/assets/svg/heart.svg"
+                            alt="tag"
+                            width="18"
+                            height="18"
+                        />
+                    </button>
+                </div>
             </figcaption>
         </figure>
     );

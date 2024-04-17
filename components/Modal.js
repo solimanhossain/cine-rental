@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useRef } from "react";
+
 export default function Modal({ children }) {
     const router = useRouter();
     const modalRef = useRef(null);
@@ -14,7 +15,7 @@ export default function Modal({ children }) {
         >
             <span
                 onClick={() => router.back()}
-                className="cursor-pointer absolute right-0 top-0  border bg-white text-4xl px-3 py-1 text-black z-20"
+                className="cursor-pointer absolute right-0 top-0  border bg-white/50 text-4xl px-3 py-1 text-black z-20"
             >
                 X
             </span>
