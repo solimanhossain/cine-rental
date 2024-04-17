@@ -17,7 +17,7 @@ export default function MovieDetails({
 
     return (
         <section className=" bg-inherit text-inherit">
-            <div>
+            <div className="w-full">
                 <Image
                     className="w-full object-cover max-h-[300px] lg:max-h-[500px]"
                     src={backdrop_path}
@@ -27,7 +27,7 @@ export default function MovieDetails({
                 />
             </div>
 
-            <div className="grid grid-cols-12 py-12 gap-8">
+            <div className="grid lg:grid-cols-12 grid-cols-8 py-12 gap-8">
                 <div className="col-span-2">
                     <Image
                         src={poster_path}
