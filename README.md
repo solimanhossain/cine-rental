@@ -5,7 +5,7 @@
 ### [Preview](https://cine-rental-service.vercel.app/) | [API](https://github.com/solimanhossain/cine-rental/tree/main/app/api)
 
 ```
-cd react-blogifly
+cd cine-rental
 npm install
 npm run dev
 ```
