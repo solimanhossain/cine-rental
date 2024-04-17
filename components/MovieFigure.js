@@ -1,11 +1,16 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { getGenre } from "../lib/genre";
 
 export default function MovieFigure({ movie, cart }) {
     const route = useRouter();
-    const { id, title, poster_path, vote_average } = movie;
+    const { id, title, poster_path, vote_average, genre_ids } = movie;
+
+    function handleAddtoCart(e) {
+        e.stopPropagation();
+        console.log(genre_ids);
+    }
 
     return (
         <figure
@@ -22,7 +27,7 @@ export default function MovieFigure({ movie, cart }) {
             <figcaption className="pt-4">
                 <h3 className="text-xl mb-1">{title}</h3>
                 <p className="text-[#575A6E] text-sm mb-2">
-                    {"Action/Adventure/Sci-fi"}
+                    {getGenre(genre_ids)}
                 </p>
                 <div className="flex items-center space-x-1 mb-5">
                     {Array.from({ length: vote_average / 2 }, (_, index) => (
@@ -36,7 +41,10 @@ export default function MovieFigure({ movie, cart }) {
                         />
                     ))}
                 </div>
-                <button className="bg-primary w-full rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm">
+                <button
+                    onClick={handleAddtoCart}
+                    className="bg-primary w-full rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
+                >
                     <span>{`$ ${200}`}</span> |
                     <Image
                         src="/assets/svg/tag.svg"
